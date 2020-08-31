@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "988003234616",
+    "firebase_url": "https://hanouti-9942b.firebaseio.com",
+    "project_id": "hanouti-9942b",
+    "storage_bucket": "hanouti-9942b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988003234616:android:861af0fbc465cdafa287cd",
+        "android_client_info": {
+          "package_name": "com.averroes.hanouti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988003234616-99f9emhg42rqief5ldnrm48u4q914k03.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.averroes.hanouti",
+            "certificate_hash": "ef4c0f364155fcb829ac5997ab240e97ec6850cd"
+          }
+        },
+        {
+          "client_id": "988003234616-8td8stdv3a3lkqkm8agmo9rifmojohrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzVl9D2sBYfERPWEWqOFckwdukgVbq8kc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988003234616-8td8stdv3a3lkqkm8agmo9rifmojohrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
