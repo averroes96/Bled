@@ -39,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -147,7 +148,31 @@ public class EditProductActivity extends AppCompatActivity implements CameraPerm
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean discountBool = (boolean) snapshot.child("discount_available").getValue();
+                        if(discountBool){
+                            discount.setChecked(true);
+                            discountedPrice.setVisibility(View.VISIBLE);
+                            discountedNote.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            discount.setChecked(false);
+                            discountedPrice.setVisibility(View.GONE);
+                            discountedNote.setVisibility(View.GONE);
+                        }
 
+                        title.setText(snapshot.child("title").getValue().toString());
+                        price.setText(snapshot.child("price").getValue().toString());
+                        description.setText(snapshot.child("description").getValue().toString());
+                        category.setText(snapshot.child("category").getValue().toString());
+                        quantity.setText(snapshot.child("quantity").getValue().toString());
+                        discountedPrice.setText(snapshot.child("discount_price").getValue().toString());
+                        discountedNote.setText(snapshot.child("discount_note").getValue().toString());
+
+                        try{
+                            Picasso.get().load(snapshot.child("product_icon").getValue().toString()).placeholder(R.drawable.ic_shopping_teal).into(profilePicture);
+                        }catch(Exception e){
+                            profilePicture.setImageResource(R.drawable.ic_shopping_teal);
+                        }
                     }
 
                     @Override
@@ -202,7 +227,89 @@ public class EditProductActivity extends AppCompatActivity implements CameraPerm
             discountNote = "";
         }
 
-        //addProduct();
+        saveProduct();
+    }
+
+    private void saveProduct() {
+
+        progressDialog.setMessage(getString(R.string.updating_product));
+        progressDialog.show();
+
+        final HashMap<String, Object> data = new HashMap<>();
+
+        data.put("title", productTitle);
+        data.put("description", productDesc);
+        data.put("category", productCat);
+        data.put("quantity", productQte);
+        data.put("price", productPrice);
+        data.put("discount_price", discountPrice);
+        data.put("discount_note", discountNote);
+        data.put("discount_available", disc);
+        data.put("uid", firebaseAuth.getUid());
+
+        if(imageUri == null){
+
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+            reference.child(firebaseAuth.getUid()).child("products").child(prodId).updateChildren(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            progressDialog.dismiss();
+                            Toast.makeText(EditProductActivity.this, getString(R.string.product_updated), Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(EditProductActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+        }
+        else{
+
+            String filePathAndName = "product_images/" + prodId;
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
+            storageReference.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while(!uriTask.isSuccessful());
+                            Uri downloadUri = uriTask.getResult();
+
+                            if(uriTask.isSuccessful()){
+                                data.put("product_icon", downloadUri.toString());
+
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+                                reference.child(firebaseAuth.getUid()).child("products").child(prodId).updateChildren(data)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(EditProductActivity.this, getString(R.string.product_updated), Toast.LENGTH_LONG).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(EditProductActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(EditProductActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+        }
     }
 
     private void categoryDialog() {
@@ -284,19 +391,6 @@ public class EditProductActivity extends AppCompatActivity implements CameraPerm
 
     public void requestCameraPermission(){
         ActivityCompat.requestPermissions(this, cameraPerm, CAMERA_REQUEST);
-    }
-
-    private void clearData() {
-        title.setText("");
-        description.setText("");
-        quantity.setText("");
-        category.setText("");
-        price.setText("");
-        discountedPrice.setText("");
-        discountedNote.setText("");
-        profilePicture.setImageResource(R.drawable.ic_store_grey);
-
-        imageUri = null;
     }
 
     @Override

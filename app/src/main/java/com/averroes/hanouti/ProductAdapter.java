@@ -142,6 +142,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
                 Intent intent = new Intent(context, EditProductActivity.class);
                 intent.putExtra("id", product.getProduct_id());
                 context.startActivity(intent);
@@ -151,6 +152,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(context.getString(R.string.delete_product) + " " + title.getText())
                         .setMessage(context.getString(R.string.delete_message) + " " + title.getText())

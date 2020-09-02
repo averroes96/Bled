@@ -75,6 +75,8 @@
     <string name="product_deleted">Product was successfully deleted</string>
     <string name="edit_product">Edit product</string>
     <string name="save">Save</string>
+    <string name="updating_product">Updating product...</string>
+    <string name="product_updated">Product was successfully updated</string>
     <string-array name="product_categories">
         <item name="phones_cat">Phones</item>
         <item name="vehicles_cat">Vehicles</item>
