@@ -1,4 +1,4 @@
-package com.averroes.hanouti;
+package com.averroes.hanouti.include;
 
 import android.content.Context;
 import android.content.Intent;

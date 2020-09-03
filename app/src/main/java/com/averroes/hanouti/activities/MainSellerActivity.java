@@ -1,4 +1,4 @@
-package com.averroes.hanouti;
+package com.averroes.hanouti.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -19,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.averroes.hanouti.modals.Product;
+import com.averroes.hanouti.adapters.ProductAdapter;
+import com.averroes.hanouti.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

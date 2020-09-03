@@ -1,4 +1,4 @@
-package com.averroes.hanouti;
+package com.averroes.hanouti.modals;
 
 public class Product {
 

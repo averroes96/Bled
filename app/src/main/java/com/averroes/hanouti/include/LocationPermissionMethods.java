@@ -1,4 +1,4 @@
-package com.averroes.hanouti;
+package com.averroes.hanouti.include;
 
 public interface LocationPermissionMethods {
 

@@ -1,16 +1,21 @@
-package com.averroes.hanouti;
+package com.averroes.hanouti.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.averroes.hanouti.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +30,12 @@ import java.util.HashMap;
 
 public class MainUserActivity extends AppCompatActivity {
 
-    private TextView name;
+    private TextView nameTV, emailTV,phoneTV, shopsTV, ordersTV, countProductsTV;
+    private ImageView profileIV;
+    private ImageButton logoutBtn, editProfileBtn, filterProductsIB;
+    private ConstraintLayout shopsTab, ordersTab;
+    private EditText searchProductsET;
+    private RecyclerView shopsRV;
 
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -36,9 +46,20 @@ public class MainUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_user);
 
 
-        name = findViewById(R.id.nameTV);
-        ImageButton logoutBtn = findViewById(R.id.logoutBtn);
-        ImageButton editBtn = findViewById(R.id.editProfileBtn);
+        nameTV = findViewById(R.id.nameTV);
+        emailTV = findViewById(R.id.emailTV);
+        phoneTV = findViewById(R.id.phoneTV);
+        shopsTV = findViewById(R.id.shopsTV);
+        ordersTV = findViewById(R.id.ordersTV);
+        countProductsTV = findViewById(R.id.countProductsTV);
+        logoutBtn = findViewById(R.id.logoutBtn);
+        profileIV = findViewById(R.id.profileIV);
+        filterProductsIB = findViewById(R.id.filterProductsIB);
+        shopsTab = findViewById(R.id.shopsTab);
+        ordersTab = findViewById(R.id.ordersTab);
+        searchProductsET = findViewById(R.id.searchProductsET);
+        shopsRV = findViewById(R.id.shopsRV);
+        editProfileBtn = findViewById(R.id.editProfileBtn);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
@@ -46,6 +67,8 @@ public class MainUserActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
         checkUser();
+        
+        showShopsTab();
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +77,50 @@ public class MainUserActivity extends AppCompatActivity {
             }
         });
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainUserActivity.this, EditUserActivity.class));
             }
         });
+
+        shopsTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showShopsTab();
+            }
+        });
+
+        ordersTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOrdersTab();
+            }
+        });
+    }
+
+    private void showShopsTab() {
+
+        shopsTab.setVisibility(View.VISIBLE);
+        ordersTab.setVisibility(View.GONE);
+
+        shopsTV.setTextColor(getResources().getColor(R.color.colorBlack));
+        shopsTV.setBackgroundResource(R.drawable.shape_selected);
+
+        ordersTV.setTextColor(getResources().getColor(R.color.colorWhite));
+        ordersTV.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+    }
+
+    private void showOrdersTab() {
+
+        shopsTab.setVisibility(View.GONE);
+        ordersTab.setVisibility(View.VISIBLE);
+
+        ordersTV.setTextColor(getResources().getColor(R.color.colorBlack));
+        ordersTV.setBackgroundResource(R.drawable.shape_selected);
+
+        shopsTV.setTextColor(getResources().getColor(R.color.colorWhite));
+        shopsTV.setBackgroundColor(getResources().getColor(android.R.color.transparent));
     }
 
     private void checkUser() {
@@ -110,7 +171,7 @@ public class MainUserActivity extends AppCompatActivity {
                             String fullname = dataSnapshot.child("fullname").getValue().toString();
                             String userType = dataSnapshot.child("account_type").getValue().toString();
 
-                            name.setText(fullname);
+                            nameTV.setText(fullname);
                         }
                     }
 
