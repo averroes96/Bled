@@ -1,6 +1,8 @@
-package com.averroes.hanouti;
+package com.averroes.hanouti.adapters;
 
 import android.widget.Filter;
+
+import com.averroes.hanouti.modals.Product;
 
 import java.util.ArrayList;
 

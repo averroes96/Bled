@@ -17,17 +17,17 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".EditProductActivity"></activity>
-        <activity android:name=".AddProductActivity" />
-        <activity android:name=".EditSellerActivity" />
-        <activity android:name=".EditUserActivity" />
-        <activity android:name=".MainUserActivity" />
-        <activity android:name=".MainSellerActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".RegisterSellerActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activities.EditProductActivity"></activity>
+        <activity android:name=".activities.AddProductActivity" />
+        <activity android:name=".activities.EditSellerActivity" />
+        <activity android:name=".activities.EditUserActivity" />
+        <activity android:name=".activities.MainUserActivity" />
+        <activity android:name=".activities.MainSellerActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.ForgotPasswordActivity" />
+        <activity android:name=".activities.RegisterSellerActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
