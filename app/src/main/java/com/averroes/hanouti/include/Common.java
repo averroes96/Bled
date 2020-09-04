@@ -10,6 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.averroes.hanouti.R;
+import com.squareup.picasso.Picasso;
+
 public class Common extends AppCompatActivity {
 
     public static void checkDecimalInput(String text, String message, Context context){
@@ -26,6 +29,16 @@ public class Common extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    public static void loadImage(String url, int placeHolderID, ImageView imageView){
+
+        try{
+            Picasso.get().load(url).placeholder(placeHolderID).into(imageView);
+        }catch(Exception e){
+            imageView.setImageResource(placeHolderID);
+        }
+
     }
 
 }

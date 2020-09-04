@@ -57,21 +57,19 @@ public class SplashActivity extends AppCompatActivity {
         progressDialog.show();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(firebaseAuth.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                progressDialog.dismiss();
+                if(snapshot.child("account_type").getValue().toString().equals("seller")){
+                    startActivity(new Intent(SplashActivity.this, MainSellerActivity.class));
+                    finish();
+                }
+                else{
                     progressDialog.dismiss();
-                    if(dataSnapshot.child("account_type").getValue().toString().equals("seller")){
-                        startActivity(new Intent(SplashActivity.this, MainSellerActivity.class));
-                        finish();
-                    }
-                    else{
-                        progressDialog.dismiss();
-                        startActivity(new Intent(SplashActivity.this, MainUserActivity.class));
-                        finish();
-                    }
+                    startActivity(new Intent(SplashActivity.this, MainUserActivity.class));
+                    finish();
                 }
             }
 

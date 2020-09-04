@@ -15,10 +15,12 @@ public class Shop {
             account_type,
             timestamp,
             online,
-            shop_open;
+            shop_open,
+            profile_image;
 
+    public Shop() {}
 
-    public Shop(String uid, String fullname, String shop_name, String phone, String delivery_fee, String dayra, String baladiya, String address, String email, String password, String account_type, String timestamp, String online, String shop_open) {
+    public Shop(String uid, String fullname, String shop_name, String phone, String delivery_fee, String dayra, String baladiya, String address, String email, String password, String account_type, String timestamp, String online, String shop_open, String profile_image) {
         this.uid = uid;
         this.fullname = fullname;
         this.shop_name = shop_name;
@@ -33,6 +35,7 @@ public class Shop {
         this.timestamp = timestamp;
         this.online = online;
         this.shop_open = shop_open;
+        this.profile_image = profile_image;
     }
 
     public String getUid() {
@@ -145,5 +148,13 @@ public class Shop {
 
     public void setShop_open(String shop_open) {
         this.shop_open = shop_open;
+    }
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 }

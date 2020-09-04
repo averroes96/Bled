@@ -98,10 +98,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         ImageButton edit = view.findViewById(R.id.editBtn);
         ImageButton delete = view.findViewById(R.id.deleteBtn);
         ImageView image = view.findViewById(R.id.productPictureIV);
-        final TextView title = view.findViewById(R.id.titleTV);
+        final TextView title = view.findViewById(R.id.shopNameTV);
         TextView description = view.findViewById(R.id.descriptionTV);
         TextView category = view.findViewById(R.id.categoryTV);
-        TextView quantity = view.findViewById(R.id.quantityTV);
+        TextView quantity = view.findViewById(R.id.shopPhoneTV);
         TextView discountNote = view.findViewById(R.id.discountNoteTV);
         TextView discountPrice = view.findViewById(R.id.discountPriceTV);
         TextView price = view.findViewById(R.id.priceTV);
@@ -224,8 +224,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             next = itemView.findViewById(R.id.nextIV);
             discountNote = itemView.findViewById(R.id.discountNoteTV);
             discountPrice = itemView.findViewById(R.id.discountPriceTV);
-            title = itemView.findViewById(R.id.titleTV);
-            quantity = itemView.findViewById(R.id.quantityTV);
+            title = itemView.findViewById(R.id.shopNameTV);
+            quantity = itemView.findViewById(R.id.shopPhoneTV);
             price = itemView.findViewById(R.id.priceTV);
         }
     }

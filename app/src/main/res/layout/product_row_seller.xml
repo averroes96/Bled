@@ -46,7 +46,7 @@
                 android:textColor="@color/colorPrimary" />
 
             <TextView
-                android:id="@+id/titleTV"
+                android:id="@+id/shopNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -58,7 +58,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/quantityTV"
+                android:id="@+id/shopPhoneTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
